@@ -1,3 +1,9 @@
+# @Author : 高天齐
+# @Time   : 2024/9/6 23:09
+# @File   : app/routes.py
+# @Note   : 路由配置与分发
+
+
 from flask import Blueprint, render_template, redirect, url_for, session
 from app.forms import LoginForm
 

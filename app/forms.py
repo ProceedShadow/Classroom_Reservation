@@ -1,3 +1,9 @@
+# @Author : 高天齐
+# @Time   : 2024/9/6 23:09
+# @File   : app/forms.py
+# @Note   : 表单处理
+
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length

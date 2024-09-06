@@ -1,3 +1,8 @@
+# @Author : 高天齐
+# @Time   : 2024/9/6 23:09
+# @File   : app/__init__.py
+# @Note   : 初始化flask APP
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
