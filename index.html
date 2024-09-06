@@ -37,6 +37,18 @@
         </div>
     </div>
 
+  <!-- 预约时间的弹出框 -->
+    <div id="reservation-modal" style="display: none;">
+        <h3>Reserve Classroom</h3>
+        <p id="modal-classroom-info"></p>
+        <label for="start-time">Start Time:</label>
+        <input type="datetime-local" id="start-time" required>
+        <label for="end-time">End Time:</label>
+        <input type="datetime-local" id="end-time" required>
+        <button id="confirm-reservation">Confirm Reservation</button>
+        <button id="cancel-reservation">Cancel</button>
+    </div>
+
   <script src="scripts/script.js"></script>
 </body>
 
