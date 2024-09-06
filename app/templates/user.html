@@ -1,3 +1,8 @@
+<!-- @Author : 高天齐 -->
+<!-- @Time   : 2024/9/6 22:30 -->
+<!-- @File   : app/templates/user.html -->
+<!-- @Note   : 用户申请页-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,47 +10,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard</title>
-  <link rel="stylesheet" href="styles/admin_user_style.css">
+  <!-- 使用 Flask 的 url_for 函数加载静态资源 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin_user_style.css') }}">
 </head>
 
 <body>
 
   <!-- 左侧工具栏 -->
   <div class="sidebar">
-    <a href="#" onclick="showTool('tool1')">工具1</a>
-    <a href="#" onclick="showTool('tool2')">工具2</a>
-    <a href="#" onclick="showTool('tool3')">工具3</a>
+    <a href="#" onclick="showTool('myConfiguration')">我的信息</a>
+    <a href="#" onclick="showTool('preRegisteration')">预约申请</a>
+    <a href="#" onclick="showTool('myReservation')">我的预约</a>
+    <a href="#" onclick="showTool('reservationQueue')">预约队列</a>
+    <a href="#" onclick="showTool('Others')">其他</a>
   </div>
 
   <!-- 右侧内容区 -->
   <div class="content">
-    <h2 id="toolTitle">请选择一个工具</h2>
+    <h2 id="toolTitle">{{ name }}，上午好。</h2>
     <p id="toolDescription">点击左侧工具栏中的工具来查看详情。</p>
   </div>
 
+  <!-- 使用 Jinja2 模板传递数据给 JavaScript -->
   <script>
-    // 模拟从登录页面获取的用户信息
+    // 将 Flask 传递的变量赋值给 JavaScript 变量
     const userInfo = {
-      info1: "用户填写的 信息1",
-      info2: "用户填写的 信息2",
-      info3: "用户填写的 信息3"
+      name: "{{ name }}",
+      username: "{{ username }}",
+      password: "{{ password }}"
     };
 
     function showTool(tool) {
       var toolTitle = document.getElementById('toolTitle');
       var toolDescription = document.getElementById('toolDescription');
 
-      if (tool === 'tool1') {
-        toolTitle.innerText = '工具1 - 用户信息';
-        toolDescription.innerHTML = `<strong>信息1:</strong> ${userInfo.info1}<br>
-                                             <strong>信息2:</strong> ${userInfo.info2}<br>
-                                             <strong>信息3:</strong> ${userInfo.info3}`;
-      } else if (tool === 'tool2') {
+      if (tool === 'myConfiguration') {
+        toolTitle.innerText = "{{ name }} 的用户信息:";
+        toolDescription.innerHTML = `<strong>姓名:</strong> ${userInfo.name}<br>
+                                     <strong>账号:</strong> ${userInfo.username}<br>
+                                     <strong>密码:</strong> ${userInfo.password}`;
+      } else if (tool === 'preRegisteration') {
         toolTitle.innerText = '工具2';
+        toolDescription.innerText = '这是工具1的详细信息。';
+      } else if (tool === 'myReservation') {
+        toolTitle.innerText = '工具3';
         toolDescription.innerText = '这是工具2的详细信息。';
-      } else if (tool === 'tool3') {
+      } else if (tool === 'reservationQueue') {
         toolTitle.innerText = '工具3';
         toolDescription.innerText = '这是工具3的详细信息。';
+      } else if (tool === 'Others') {
+        toolTitle.innerText = '工具3';
+        toolDescription.innerText = '这是工具4的详细信息。';
       }
     }
   </script>

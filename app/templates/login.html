@@ -1,0 +1,47 @@
+<!-- @Author : 高天齐 -->
+<!-- @Time   : 2024/9/6 19:30 -->
+<!-- @File   : index.html -->
+<!-- @Note   : 登录起始页 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/log_in_style.css') }}">
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+
+    <!-- 表单提交使用 POST 方法 -->
+    <form method="POST" action="{{ url_for('main.login') }}">
+      {{ form.hidden_tag() }} <!-- Flask-WTF CSRF 保护 -->
+
+      <label for="name">姓名:</label>
+      {{ form.name(size=32) }} <!-- 使用 Flask-WTF 渲染表单字段 -->
+      {% for error in form.name.errors %}
+      <span style="color: red;">{{ error }}</span>
+      {% endfor %}
+
+      <label for="username">账号:</label>
+      {{ form.username(size=32) }}
+      {% for error in form.username.errors %}
+      <span style="color: red;">{{ error }}</span>
+      {% endfor %}
+
+      <label for="password">密码:</label>
+      {{ form.password(size=32) }}
+      {% for error in form.password.errors %}
+      <span style="color: red;">{{ error }}</span>
+      {% endfor %}
+
+      <button type="submit">登录</button> <!-- 设置按钮类型为 submit -->
+    </form>
+  </div>
+</body>
+
+</html>
