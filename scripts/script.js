@@ -48,10 +48,71 @@
 //   document.getElementById('queue-length').innerText = queue.length;
 // }
 
+// let classrooms = [
+//     { id: 1, reserved: false, queue: [] },
+//     { id: 2, reserved: false, queue: [] },
+//     { id: 3, reserved: false, queue: [] },
+// ];
+
+// document.getElementById('login-form').addEventListener('submit', function (e) {
+//     e.preventDefault();
+//     login();
+// });
+
+// function login() {
+//     const username = document.getElementById('username').value;
+//     const password = document.getElementById('password').value;
+
+//     if (username && password) {
+//         document.getElementById('login-page').style.display = 'none';
+//         document.getElementById('reservation-page').style.display = 'block';
+//         displayClassrooms();
+//     } else {
+//         alert('Please enter valid credentials.');
+//     }
+// }
+
+// function displayClassrooms() {
+//     const container = document.getElementById('classrooms-container');
+//     container.innerHTML = '';
+
+//     classrooms.forEach(classroom => {
+//         const classroomDiv = document.createElement('div');
+//         classroomDiv.className = 'classroom';
+
+//         const classroomStatus = classroom.reserved ? 'Reserved' : 'Available';
+//         classroomDiv.innerHTML = `
+//             <h3>Classroom ${classroom.id}</h3>
+//             <p>Status: ${classroomStatus}</p>
+//             <p>Queue length: ${classroom.queue.length}</p>
+//             <button onclick="reserveClassroom(${classroom.id})" ${classroom.reserved ? 'disabled' : ''}>Reserve</button>
+//             <button onclick="joinQueue(${classroom.id})" ${classroom.reserved ? '' : 'disabled'}>Join Queue</button>
+//         `;
+
+//         container.appendChild(classroomDiv);
+//     });
+// }
+
+// function reserveClassroom(id) {
+//     const classroom = classrooms.find(c => c.id === id);
+//     if (!classroom.reserved) {
+//         classroom.reserved = true;
+//         alert(`Classroom ${id} has been reserved.`);
+//         displayClassrooms();
+//     }
+// }
+
+// function joinQueue(id) {
+//     const classroom = classrooms.find(c => c.id === id);
+//     classroom.queue.push('User');  // 模拟当前用户
+//     alert(`You have joined the queue for Classroom ${id}.`);
+//     displayClassrooms();
+// }
+
 let classrooms = [
-    { id: 1, reserved: false, queue: [] },
-    { id: 2, reserved: false, queue: [] },
-    { id: 3, reserved: false, queue: [] },
+    { id: 1, reserved: false, queue: [], reservationTime: null },
+    { id: 2, reserved: false, queue: [], reservationTime: null },
+    { id: 3, reserved: false, queue: [], reservationTime: null },
 ];
 
 document.getElementById('login-form').addEventListener('submit', function (e) {
@@ -80,12 +141,12 @@ function displayClassrooms() {
         const classroomDiv = document.createElement('div');
         classroomDiv.className = 'classroom';
 
-        const classroomStatus = classroom.reserved ? 'Reserved' : 'Available';
+        const classroomStatus = classroom.reserved ? `Reserved until ${classroom.reservationTime}` : 'Available';
         classroomDiv.innerHTML = `
             <h3>Classroom ${classroom.id}</h3>
             <p>Status: ${classroomStatus}</p>
             <p>Queue length: ${classroom.queue.length}</p>
-            <button onclick="reserveClassroom(${classroom.id})" ${classroom.reserved ? 'disabled' : ''}>Reserve</button>
+            <button onclick="openReservationModal(${classroom.id})" ${classroom.reserved ? 'disabled' : ''}>Reserve</button>
             <button onclick="joinQueue(${classroom.id})" ${classroom.reserved ? '' : 'disabled'}>Join Queue</button>
         `;
 
@@ -93,18 +154,38 @@ function displayClassrooms() {
     });
 }
 
-function reserveClassroom(id) {
-    const classroom = classrooms.find(c => c.id === id);
-    if (!classroom.reserved) {
+function openReservationModal(id) {
+    document.getElementById('reservation-modal').style.display = 'block';
+    document.getElementById('modal-classroom-info').innerText = `Reserving Classroom ${id}`;
+    document.getElementById('confirm-reservation').onclick = function() {
+        confirmReservation(id);
+    };
+    document.getElementById('cancel-reservation').onclick = closeReservationModal;
+}
+
+function confirmReservation(id) {
+    const startTime = document.getElementById('start-time').value;
+    const endTime = document.getElementById('end-time').value;
+
+    if (startTime && endTime) {
+        const classroom = classrooms.find(c => c.id === id);
         classroom.reserved = true;
-        alert(`Classroom ${id} has been reserved.`);
+        classroom.reservationTime = `${endTime}`;
+        alert(`Classroom ${id} reserved from ${startTime} to ${endTime}`);
+        closeReservationModal();
         displayClassrooms();
+    } else {
+        alert('Please select valid times.');
     }
+}
+
+function closeReservationModal() {
+    document.getElementById('reservation-modal').style.display = 'none';
 }
 
 function joinQueue(id) {
     const classroom = classrooms.find(c => c.id === id);
-    classroom.queue.push('User');  // 模拟当前用户
+    classroom.queue.push('User');
     alert(`You have joined the queue for Classroom ${id}.`);
     displayClassrooms();
 }
