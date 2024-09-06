@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Classroom Reservation</title>
-  <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Classroom Reservation with Time and Cancel</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
-
 <body>
-  <div id="login-page">
-    <h2>Login</h2>
-    <form id="login-form">
-      <label for="username">Username:</label>
-      <input type="text" id="username" required>
-      <label for="password">Password:</label>
-      <input type="password" id="password" required>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-
-<!--   <div id="reservation-page" style="display: none;">
-    <h2>Classroom Reservation</h2>
-    <div id="status"></div>
-    <div id="queue-info">
-      <p>Queue length: <span id="queue-length">0</span></p>
+    <div id="login-page">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
     </div>
-    <button id="reserve-btn">Reserve Classroom</button>
-    <button id="join-queue-btn" style="display: none;">Join Queue</button>
-  </div> -->
 
-  <div id="reservation-page" style="display: none;">
+    <div id="reservation-page" style="display: none;">
         <h2>Classroom Reservation</h2>
-        <div id="classrooms-container">
-            <!-- 动态生成教室 -->
-        </div>
+        <div id="classrooms-container"></div>
+
+        <h3>Your Reservations</h3>
+        <div id="user-reservations"></div>
     </div>
 
-  <!-- 预约时间的弹出框 -->
+    <!-- 预约时间的弹出框 -->
     <div id="reservation-modal" style="display: none;">
         <h3>Reserve Classroom</h3>
         <p id="modal-classroom-info"></p>
@@ -49,7 +38,6 @@
         <button id="cancel-reservation">Cancel</button>
     </div>
 
-  <script src="scripts/script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
-
 </html>
