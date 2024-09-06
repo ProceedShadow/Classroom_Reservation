@@ -1,8 +1,11 @@
 let classrooms = [
-    { id: 1, reservations: [] },  // 每个教室有一个 reservations 数组，记录所有预约
+    { id: 1, reservations: [] },
     { id: 2, reservations: [] },
     { id: 3, reservations: [] },
 ];
+
+let currentUser = '';  // 当前登录的用户
+let userReservations = [];  // 当前用户的预约信息
 
 document.getElementById('login-form').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -10,13 +13,14 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
 });
 
 function login() {
-    const username = document.getElementById('username').value;
+    currentUser = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    if (username && password) {
+    if (currentUser && password) {
         document.getElementById('login-page').style.display = 'none';
         document.getElementById('reservation-page').style.display = 'block';
         displayClassrooms();
+        displayUserReservations();
     } else {
         alert('Please enter valid credentials.');
     }
@@ -45,6 +49,28 @@ function displayClassrooms() {
     });
 }
 
+function displayUserReservations() {
+    const container = document.getElementById('user-reservations');
+    container.innerHTML = '';
+
+    if (userReservations.length === 0) {
+        container.innerHTML = '<p>You have no current reservations.</p>';
+        return;
+    }
+
+    userReservations.forEach((reservation, index) => {
+        const resDiv = document.createElement('div');
+        resDiv.className = 'reservation';
+
+        resDiv.innerHTML = `
+            <p>Classroom ${reservation.classroomId}: From ${reservation.start} to ${reservation.end}</p>
+            <button onclick="cancelReservation(${index})">Cancel Reservation</button>
+        `;
+
+        container.appendChild(resDiv);
+    });
+}
+
 function openReservationModal(id) {
     document.getElementById('reservation-modal').style.display = 'block';
     document.getElementById('modal-classroom-info').innerText = `Reserving Classroom ${id}`;
@@ -63,10 +89,12 @@ function confirmReservation(id) {
         
         // 检查时间冲突
         if (!isTimeConflict(classroom.reservations, startTime, endTime)) {
-            classroom.reservations.push({ start: startTime, end: endTime });
+            classroom.reservations.push({ user: currentUser, start: startTime, end: endTime });
+            userReservations.push({ classroomId: id, start: startTime, end: endTime });
             alert(`Classroom ${id} reserved from ${startTime} to ${endTime}`);
             closeReservationModal();
             displayClassrooms();
+            displayUserReservations();
         } else {
             alert('The selected time conflicts with an existing reservation.');
         }
@@ -85,6 +113,21 @@ function isTimeConflict(existingReservations, startTime, endTime) {
         
         return (newStart < existingEnd && newEnd > existingStart);
     });
+}
+
+function cancelReservation(index) {
+    const reservation = userReservations[index];
+
+    // 从教室的预约列表中删除该预约
+    const classroom = classrooms.find(c => c.id === reservation.classroomId);
+    classroom.reservations = classroom.reservations.filter(res => !(res.user === currentUser && res.start === reservation.start && res.end === reservation.end));
+
+    // 从用户预约列表中删除该预约
+    userReservations.splice(index, 1);
+
+    alert(`Your reservation for Classroom ${reservation.classroomId} from ${reservation.start} to ${reservation.end} has been cancelled.`);
+    displayClassrooms();
+    displayUserReservations();
 }
 
 function closeReservationModal() {
