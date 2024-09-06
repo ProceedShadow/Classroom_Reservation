@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="styles/admin_user_style.css">
+</head>
+
+<body>
+
+  <!-- 左侧工具栏 -->
+  <div class="sidebar">
+    <a href="#" onclick="showTool('tool1')">工具1</a>
+    <a href="#" onclick="showTool('tool2')">工具2</a>
+    <a href="#" onclick="showTool('tool3')">工具3</a>
+  </div>
+
+  <!-- 右侧内容区 -->
+  <div class="content">
+    <h2 id="toolTitle">请选择一个工具</h2>
+    <p id="toolDescription">点击左侧工具栏中的工具来查看详情。</p>
+  </div>
+
+  <script>
+    // 模拟从登录页面获取的用户信息
+    const userInfo = {
+      info1: "用户填写的 信息1",
+      info2: "用户填写的 信息2",
+      info3: "用户填写的 信息3"
+    };
+
+    function showTool(tool) {
+      var toolTitle = document.getElementById('toolTitle');
+      var toolDescription = document.getElementById('toolDescription');
+
+      if (tool === 'tool1') {
+        toolTitle.innerText = '工具1 - 用户信息';
+        toolDescription.innerHTML = `<strong>信息1:</strong> ${userInfo.info1}<br>
+                                             <strong>信息2:</strong> ${userInfo.info2}<br>
+                                             <strong>信息3:</strong> ${userInfo.info3}`;
+      } else if (tool === 'tool2') {
+        toolTitle.innerText = '工具2';
+        toolDescription.innerText = '这是工具2的详细信息。';
+      } else if (tool === 'tool3') {
+        toolTitle.innerText = '工具3';
+        toolDescription.innerText = '这是工具3的详细信息。';
+      }
+    }
+  </script>
+
+</body>
+
+</html>

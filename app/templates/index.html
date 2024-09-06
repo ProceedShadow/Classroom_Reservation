@@ -1,0 +1,35 @@
+<!-- @Author : 高天齐 -->
+<!-- @Time   : 2024/9/6 19:30 -->
+<!-- @File   : index.html -->
+<!-- @Note   : 登录起始页 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles/log_in_style.css">
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <label for="name">姓名:</label>
+    <input type="text" id="name" placeholder="请输入姓名。" required>
+
+    <!-- 会根据账号信息识别判断用户/管理员 -->
+    <label for="username">账号:</label>
+    <input type="text" id="username" placeholder="请输入账号。" required>
+
+    <label for="password">密码:</label>
+    <input type="password" id="password" placeholder="请输入密码。" required>
+
+    <button onclick="login()">登录</button>
+  </div>
+
+  <script src="scripts/log_in_script.js"></script>
+</body>
+
+</html>
