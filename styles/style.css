@@ -40,3 +40,23 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+.classroom {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.classroom h3 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.classroom p {
+    margin: 0;
+}
+
+.classroom button {
+    width: auto;
+}
