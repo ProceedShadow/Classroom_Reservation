@@ -11,7 +11,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="../static/styles/admin_user_style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin_user_style.css') }}">
 </head>
 
 <body>
@@ -30,7 +30,7 @@
     <p id="toolDescription">点击左侧工具栏中的工具来查看详情。</p>
   </div>
 
-  <script src="../static/scripts/admin_script.js"></script>
+  <script src="{{ url_for('static', filename='scripts/admin_script.js') }}"></script>
 
 </body>
 

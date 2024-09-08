@@ -32,38 +32,7 @@
   </div>
 
   <!-- 使用 Jinja2 模板传递数据给 JavaScript -->
-  <script>
-    // 将 Flask 传递的变量赋值给 JavaScript 变量
-    const userInfo = {
-      name: "{{ name }}",
-      username: "{{ username }}",
-      password: "{{ password }}"
-    };
-
-    function showTool(tool) {
-      var toolTitle = document.getElementById('toolTitle');
-      var toolDescription = document.getElementById('toolDescription');
-
-      if (tool === 'myConfiguration') {
-        toolTitle.innerText = "{{ name }} 的用户信息:";
-        toolDescription.innerHTML = `<strong>姓名:</strong> ${userInfo.name}<br>
-                                     <strong>账号:</strong> ${userInfo.username}<br>
-                                     <strong>密码:</strong> ${userInfo.password}`;
-      } else if (tool === 'preRegisteration') {
-        toolTitle.innerText = '工具2';
-        toolDescription.innerText = '这是工具1的详细信息。';
-      } else if (tool === 'myReservation') {
-        toolTitle.innerText = '工具3';
-        toolDescription.innerText = '这是工具2的详细信息。';
-      } else if (tool === 'reservationQueue') {
-        toolTitle.innerText = '工具3';
-        toolDescription.innerText = '这是工具3的详细信息。';
-      } else if (tool === 'Others') {
-        toolTitle.innerText = '工具3';
-        toolDescription.innerText = '这是工具4的详细信息。';
-      }
-    }
-  </script>
+  <script src="{{ url_for('static', filename='scripts/user_script.js') }}"></script>
 
 </body>
 

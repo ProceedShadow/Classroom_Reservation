@@ -10,7 +10,7 @@ from app.forms import LoginForm
 main = Blueprint("main", __name__)
 
 
-@main.route("/", methods=["GET", "POST"])
+@main.route("/", methods=["GET"])
 @main.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()  # 创建表单实例
@@ -24,6 +24,8 @@ def login():
         session["name"] = name
         session["username"] = username
         session["password"] = password
+
+        # TODO: 需要验证用户名是否存在，密码是否正确。
 
         # 判断是否为管理员
         if username == "admin":

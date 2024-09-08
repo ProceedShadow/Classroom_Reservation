@@ -14,7 +14,11 @@ migrate = Migrate()
 csrf = CSRFProtect()
 
 
-def create_app():
+def create_app() -> Flask:
+    """
+    搭建网页APP框架。
+    :return ：Flask对象
+    """
     app = Flask(__name__)
 
     # 加载配置
@@ -26,6 +30,7 @@ def create_app():
     csrf.init_app(app)  # 在 app 初始化后，初始化 CSRF 保护
 
     # 注册路由
+    # NOTE: 这里没有在开头导入app.routes的原因：避免<循环导入>错误
     from app.routes import main as main_blueprint
 
     app.register_blueprint(main_blueprint)
